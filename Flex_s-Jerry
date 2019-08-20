@@ -9,3 +9,4 @@ a=analog.Read(A1);
 Serial.println(a);
 delay(100);
 }
+LOL JERRRRYY
