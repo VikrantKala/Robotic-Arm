@@ -7,5 +7,6 @@ void loop
 {
 a=analog.Read(A1);
 Serial.println(a);
-delay(20);
+delay(222);
 }
+LOL JERRRRYY
