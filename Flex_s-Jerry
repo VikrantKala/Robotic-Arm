@@ -1,0 +1,11 @@
+int a
+void setup
+{
+  Pinmode(A1, INPUT);
+}
+void loop
+{
+a=analog.Read(A1);
+Serial.println(a);
+delay(100);
+}
