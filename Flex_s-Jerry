@@ -1,6 +1,7 @@
 int a
 void setup
 {
+  Serial.begin(9600);
   Pinmode(A1, INPUT);
 }
 void loop
@@ -9,4 +10,3 @@ a=analog.Read(A1);
 Serial.println(a);
 delay(222);
 }
-LOL JERRRRYY
