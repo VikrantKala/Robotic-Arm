@@ -8,7 +8,7 @@ RF24 radio(7, 8);
 
 byte addresses[][6] = {"1Node", "2Node"};
 
-int data,a=1,i,c;
+int data,a=1,i,c,d,j;
 
 double v[10];
 
@@ -39,23 +39,26 @@ void setup() {
   void loop(){ 
 
   radio.startListening();
-  int G1;
-  int G2;
+  
+ // int G2;
  
   if(radio.available())
-  {radio.read( &G1, sizeof(int) );
+  {int G1[8];
+    radio.read( &G1, sizeof(int) );
+  
   if(a==1)
   {Serial.print("Slave1: ");
-  Serial.println(G1);
-  --a;
-  c=constrain(G1,0,50);
-   if(c>i)
+  --a; c=G1[0];
+  c=constrain(c,0,90);
+   Serial.print(c);
+   Serial.println();
+      if(c>i)
    {
     while(c!=i)
     {
       digitalWrite(2,HIGH);
-      digitalWrite(1,LOW);
-      ++i;
+      digitalWrite(3,LOW);
+      ++i;Serial.print("NO");
     }
    }
    else if(i>c)
@@ -63,33 +66,60 @@ void setup() {
     while(c!=i)
     {
       digitalWrite(2,LOW);
-      digitalWrite(1,HIGH);
+      digitalWrite(3,HIGH);
+      --i;Serial.print("YES");
     }
    }
-   else
-   {
-    digitalWrite(2,LOW);
-    digitalWrite(1,LOW);
-    
-    } i=c;
-   }
+      else
+     { digitalWrite(2,LOW);
+      digitalWrite(3,LOW);
+      Serial.print("NIL");
+     }
+     i=c;
     }
   else if(a==0)
-  {Serial.print("Slave2: ");++a;}  
+  {Serial.print("Slave2: ");++a;
+  d=G1[0];
+  d=constrain(d,0,90);
+   Serial.print(d);
+   Serial.println();
+      if(d>j)
+   {
+    while(d!=j)
+    {
+      digitalWrite(5,HIGH);
+      digitalWrite(4,LOW);
+      ++j;//Serial.print("NO");
+    }
+   }
+   else if(j>d)
+   {
+    while(d!=j)
+    {
+      digitalWrite(5,LOW);
+      digitalWrite(4,HIGH);
+      --j;//Serial.print("YES");
+    }
+   }
+      else
+     { digitalWrite(5,LOW);
+      digitalWrite(4,LOW);
+      //Serial.print("NIL");
+     }
+     j=d;
+     }  
   else
   Serial.print("Invalid: ");
-  Serial.println(G1);
+  Serial.println(G1[0]);
 //  radio.read( &G2, sizeof(int) );
 //   Serial.print("Slave2: ");
 //  Serial.println(G2);
-
- //delay(1000);
-
 }
   
-  } 
+  
    
   
 
+  //delay(1000);
  
- 
+}
