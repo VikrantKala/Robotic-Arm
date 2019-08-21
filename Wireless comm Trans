@@ -98,11 +98,11 @@ z= RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
 //      return;
 //    }
 //  }
-v[0]=z;
+v[0]=x;
  radio.stopListening(); 
   radio.write( &v, sizeof(v) );
   Serial.print("Sent: ");
-  Serial.println(z);  
+  Serial.println(x);  
   
   delay(1000);
  
