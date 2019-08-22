@@ -56,7 +56,7 @@ angles(MPU2);
 Serial.print("----------------------------\n");
  
  
-  delay(1000);
+  //delay(1000);
 }
 
 void angles(const int MPU)
