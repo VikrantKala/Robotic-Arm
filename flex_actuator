@@ -1,0 +1,38 @@
+//for 35.4 flex
+int a;
+void setup()
+{
+  Serial.begin(2400);
+  pinMode(A1, INPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  
+}
+void loop()
+{
+a= analogRead(A1);
+Serial.println(a);
+delay(500);
+/* front bend (<876)
+ *  back bend (>910)
+ *  normal(885 - 897)
+ */
+//5 input
+//6 input
+ if(a<876)
+ {
+  digitalWrite(5, LOW);
+  digitalWrite(6, HIGH);
+ }
+ else if(a>=884 && a<=896)
+ {
+  digitalWrite(6, LOW);
+  digitalWrite(5,HIGH);
+ }
+ else
+ {
+  digitalWrite(5,LOW);
+  digitalWrite(6,LOW);
+ }
+
+}
