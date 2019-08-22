@@ -16,7 +16,12 @@ void setup() {
   Serial.begin(9600);
  // Serial.println("THIS IS THE TRANSMITTER CODE - YOU NEED THE OTHER ARDIUNO TO SEND BACK A RESPONSE");
 
-  
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(4,OUTPUT);
+  pinMode(A0,OUTPUT);
+  pinMode(A1,OUTPUT);
   radio.begin();
 
   
@@ -37,7 +42,8 @@ void setup() {
 }
  
   void loop(){ 
-
+analogWrite(9,150);
+analogWrite(A1,150);
   radio.startListening();
   
  // int G2;
@@ -58,7 +64,7 @@ void setup() {
     {
       digitalWrite(2,HIGH);
       digitalWrite(3,LOW);
-      ++i;Serial.print("NO");
+      ++i;//Serial.print("NO");
     }
    }
    else if(i>c)
@@ -67,13 +73,13 @@ void setup() {
     {
       digitalWrite(2,LOW);
       digitalWrite(3,HIGH);
-      --i;Serial.print("YES");
+      --i;//Serial.print("YES");
     }
    }
       else
      { digitalWrite(2,LOW);
       digitalWrite(3,LOW);
-      Serial.print("NIL");
+      //Serial.print("NIL");
      }
      i=c;
     }
