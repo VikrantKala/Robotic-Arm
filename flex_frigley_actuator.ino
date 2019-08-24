@@ -1,7 +1,7 @@
-//for 35.40 flex
-/* front bend (>145)
- *  back bend ( < )
- *  normal(118-129)
+// 
+/*
+for green-grey wired flex
+c.d=33
  */
 //5 input
 //6 input
@@ -12,7 +12,7 @@
 #define I 6
 #define O 3
 #define P 4
-int a;
+int a,b;
 
 void setup()
 {
@@ -22,7 +22,7 @@ void setup()
   pinMode(I,OUTPUT);
   pinMode(O,OUTPUT);
   pinMode(P,OUTPUT);
-  
+  b=analogRead(T);
 }
 void loop()
 {
@@ -30,14 +30,14 @@ a= analogRead(T);
 Serial.println(a);
 delay(500);
 
- if(a>145 )
+ if(a>b+32 )
  {
   digitalWrite(U, LOW);
   digitalWrite(I, HIGH);
   digitalWrite(O, LOW);
   digitalWrite(P, HIGH);
  }
- else if(a>=118 && a<130)
+ else if(a>=b-5 && a<b+5)
  {
   digitalWrite(U, HIGH);
   digitalWrite(I,LOW);
