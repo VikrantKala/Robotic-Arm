@@ -32,14 +32,14 @@ g= analogRead(T);
 Serial.println(g);
 delay(500);
 
- if(g>h+32 )
+ if(g>(h+32) )
  {
   digitalWrite(U, LOW);
   digitalWrite(I, HIGH);
   digitalWrite(O, LOW);
   digitalWrite(P, HIGH);
  }
- else if(g>=h-5 && g<h+5)
+ else if(g>=(h-5) && g<(h+5))
  {
   digitalWrite(U, HIGH);
   digitalWrite(I,LOW);
