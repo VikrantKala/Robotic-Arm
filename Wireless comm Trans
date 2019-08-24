@@ -1,7 +1,7 @@
-//#include "Arduino.h"
-//#include <SPI.h>
 #include <RF24.h>
  #include<Wire.h>
+
+// ce = 6 || csn = 10
 
 RF24 radio(7, 8);
 
@@ -49,14 +49,14 @@ void setup() {
   void loop(){ 
     Serial.print("First\n");
  angles(MPU_addr);
-   Serial.print("--------------------");
+   Serial.println("--------------------");
 
-Serial.print("\nSecond \n");
+Serial.print("Second \n");
 angles(MPU2);
 Serial.print("----------------------------\n");
  
  
-  //delay(1000);
+  delay(1000);
 }
 
 void angles(const int MPU)
@@ -99,11 +99,14 @@ z= RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
 //    }
 //  }
 v[0]=x;
+v[1]=y;
  radio.stopListening(); 
   radio.write( &v, sizeof(v) );
-  Serial.print("Sent: ");
-  Serial.println(x);  
+  Serial.print("x: ");
+  Serial.println(x);
+  Serial.print("y: ");
+  Serial.println(y);  
   
-  delay(1000);
+  //delay(1000);
  
 }
