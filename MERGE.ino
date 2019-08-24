@@ -19,6 +19,7 @@ int forward(int a, int b, int c);
 int backward(int a, int b, int c);
 int Pwr_Window();
 int flex_actuator();
+int Gripper_roll_flex();
 void setup() 
 {
   Serial.begin(9600);
@@ -34,11 +35,7 @@ void setup()
 }
 
 void loop() {
-  int initial=s.readMicroseconds();
-  Serial.println("current pos =");
-  Serial.println(initial);
-  forward(initial, y1, y2);
-  backward(initial, y1, y2);
+  Gripper_roll_flex();  
   Pwr_Window();
   flex_actuator();
   
@@ -150,4 +147,13 @@ delay(500);
   digitalWrite(P,LOW);
  }
  return 0;
+}
+
+int Gripper_roll_flex()
+{
+  int initial=s.readMicroseconds();
+  Serial.println("current pos =");
+  Serial.println(initial);
+  forward(initial, y1, y2);
+  backward(initial, y1, y2);
 }
