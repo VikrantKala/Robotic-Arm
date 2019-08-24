@@ -30,7 +30,6 @@ c.d=33
 //4 input
 g= analogRead(T);
 Serial.println(g);
-delay(500);
 
  if(g>(h+32) )
  {
@@ -38,6 +37,7 @@ delay(500);
   digitalWrite(I, HIGH);
   digitalWrite(O, LOW);
   digitalWrite(P, HIGH);
+   delay(20);
  }
  else if(g>=(h-5) && g<(h+5))
  {
@@ -45,6 +45,7 @@ delay(500);
   digitalWrite(I,LOW);
   digitalWrite(O, HIGH);
   digitalWrite(P,LOW);
+   delay(20);
  }
  else
  {
@@ -52,6 +53,7 @@ delay(500);
   digitalWrite(I,LOW);
   digitalWrite(O,LOW);
   digitalWrite(P,LOW);
+   delay(20);
  }
 
 }
