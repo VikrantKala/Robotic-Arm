@@ -1,4 +1,4 @@
-#define mega_pin 28 //update the pin atached to the Arduino MEGA
+#define mega_pin A0 //update the pin atached to the Arduino MEGA
 /* Y
  *  <45 FOR BACKWARD
  *  >15 FOR FORWARD
