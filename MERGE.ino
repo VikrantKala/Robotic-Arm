@@ -1,7 +1,7 @@
 #define mega_pin A0 //update the pin atached to the Arduino MEGA
 #define K 9
 #define L 10 
-#define T A1
+#define T A1   // frigley actuator pin
 #define U 5
 #define I 6
 #define O 3
