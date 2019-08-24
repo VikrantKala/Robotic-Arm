@@ -1,4 +1,12 @@
 //for 35.40 flex, CHANGE THE READINGS ACCORDINGLY
+/* front bend (>145)
+ *  back bend ( < )
+ *  normal(118-129)
+ */
+//5 input
+//6 input
+//3 input
+//4 input
 int a;
 
 void setup()
