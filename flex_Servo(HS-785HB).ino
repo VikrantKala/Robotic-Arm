@@ -1,15 +1,17 @@
 //28.5 flex
+//close-1592
+//open-1472
 #include<Servo.h>
-int a;
-int b=600;
+int a,c;
+int b=1472;
 Servo s; 
 void setup()
 {
   Serial.begin(2400);
   s.attach(A2);
   pinMode(A1, INPUT);
-  pinMode(A2,OUTPUT);
   s.writeMicroseconds(b);
+  c=analogRead(A1);
   
 }
 void loop()
@@ -17,14 +19,14 @@ void loop()
 a= analogRead(A1);
 Serial.println(a);
 delay(100);
-if(a>172 && b<658)
+if(a>c+15 && b<1592)
 {
-  b=b+2;
+  b=b+5;
 s.writeMicroseconds(b);
 }
-else if(a>=151 && a<=158 && b>600)
+else if(a>=c-4 && a<=c+4 && b>1472)
 {
-  b=b-2;
+  b=b-5;
   s.writeMicroseconds(b);
 }
 }
