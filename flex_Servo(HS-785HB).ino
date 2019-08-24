@@ -6,9 +6,9 @@ Servo s;
 void setup()
 {
   Serial.begin(2400);
-  s.attach(9);
+  s.attach(A2);
   pinMode(A1, INPUT);
-  pinMode(9,OUTPUT);
+  pinMode(A2,OUTPUT);
   s.writeMicroseconds(b);
   
 }
