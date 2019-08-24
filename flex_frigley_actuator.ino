@@ -1,12 +1,4 @@
-// 
-/*
-for green-grey wired flex
-c.d=33
- */
-//5 input
-//6 input
-//3 input
-//4 input
+
 #define T A1
 #define U 5
 #define I 6
@@ -26,6 +18,16 @@ void setup()
 }
 void loop()
 {
+  
+  // 
+/*
+for green-grey wired flex
+c.d=33
+ */
+//5 input
+//6 input
+//3 input
+//4 input
 g= analogRead(T);
 Serial.println(g);
 delay(500);
