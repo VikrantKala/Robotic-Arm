@@ -1,4 +1,7 @@
-//28.5 flex
+/*for new flex 1.2
+    c.d=46
+*/
+
 //close-1592
 //open-1472
 #include<Servo.h>
@@ -19,12 +22,12 @@ void loop()
 a= analogRead(A1);
 Serial.println(a);
 delay(100);
-if(a>c+15 && b<1592)
+if(a>c+45 && b<1592)
 {
   b=b+5;
 s.writeMicroseconds(b);
 }
-else if(a>=c-4 && a<=c+4 && b>1472)
+else if(a>=c-5 && a<=c+5 && b>1472)
 {
   b=b-5;
   s.writeMicroseconds(b);
