@@ -1,4 +1,4 @@
-//for 35.4 flex
+//for 35.40 flex
 int a;
 void setup()
 {
@@ -13,21 +13,21 @@ void loop()
 a= analogRead(A1);
 Serial.println(a);
 delay(500);
-/* front bend (<876)
- *  back bend (>910)
- *  normal(885 - 897)
+/* front bend (>145)
+ *  back bend ( < )
+ *  normal(118-129)
  */
 //5 input
 //6 input
- if(a<876)
+ if(a>145)
  {
   digitalWrite(5, LOW);
   digitalWrite(6, HIGH);
  }
- else if(a>=884 && a<=896)
+ else if(a>=118 && a<130)
  {
-  digitalWrite(6, LOW);
-  digitalWrite(5,HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(6,LOW);
  }
  else
  {
