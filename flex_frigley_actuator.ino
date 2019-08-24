@@ -22,11 +22,11 @@ void setup()
   pinMode(I,OUTPUT);
   pinMode(O,OUTPUT);
   pinMode(P,OUTPUT);
-  b=analogRead(T);
+  h=analogRead(T);
 }
 void loop()
 {
-a= analogRead(T);
+g= analogRead(T);
 Serial.println(g);
 delay(500);
 
