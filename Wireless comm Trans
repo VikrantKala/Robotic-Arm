@@ -1,9 +1,10 @@
+
 #include <RF24.h>
- #include<Wire.h>
+#include<Wire.h>
 
 // ce = 6 || csn = 10
 
-RF24 radio(7, 8);
+RF24 radio(6, 10);
 
 byte addresses[][6] = {"1Node", "2Node"};
  const int MPU_addr=0x68,MPU2=0x69; 
@@ -81,32 +82,21 @@ z= RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
 //Serial.print("AngleY= "); Serial.println(y);
 
 //Serial.print("AngleZ= "); Serial.println(z); 
- //Serial.print("ARM PITCH= "); Serial.println(x);
- //Serial.print("ARM  YAW= "); Serial.println(y);
- //Serial.println("-----------------------------------------"); 
- 
 
-  
-  //unsigned long started_waiting_at = millis();
-
-  
-//  while ( ! radio.available() ) {
-//
-//   
-//    if (millis() - started_waiting_at > 200 ) {
-//      Serial.println("No response received - timeout!");
-//      return;
-//    }
-//  }
 v[0]=x;
 v[1]=y;
+v[2]=analogRead(A1);
+v[3]=analogRead(A2);
  radio.stopListening(); 
   radio.write( &v, sizeof(v) );
   Serial.print("x: ");
   Serial.println(x);
   Serial.print("y: ");
   Serial.println(y);  
-  
+  Serial.print("Flex 1:");
+  Serial.println(v[2]);
+  Serial.print("Flex 2:");
+  Serial.println(v[3]);  
   //delay(1000);
  
 }
