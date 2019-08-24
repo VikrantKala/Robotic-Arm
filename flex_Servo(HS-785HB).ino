@@ -1,35 +1,37 @@
-/*for new flex 1.2
+#define flex_servo_pin A2
+#include<Servo.h>
+int q,w;
+int r=1472;
+Servo s; 
+void setup()
+{
+  Serial.begin(2400);
+  s.attach(flex_servo_pin);
+  s.writeMicroseconds(r);
+  w=f2;
+  
+}
+void loop()
+{
+    /*for new flex 1.2
     c.d=46
 */
 
 //close-1592
 //open-1472
-#include<Servo.h>
-int a,c;
-int b=1472;
-Servo s; 
-void setup()
-{
-  Serial.begin(2400);
-  s.attach(A2);
-  pinMode(A1, INPUT);
-  s.writeMicroseconds(b);
-  c=analogRead(A1);
-  
-}
-void loop()
-{
-a= analogRead(A1);
-Serial.println(a);
+q= f2;
+Serial.println(q);
 delay(100);
-if(a>c+45 && b<1592)
+if(q>w+45 && r<1592)
 {
-  b=b+5;
-s.writeMicroseconds(b);
+  r=r+5;
+s.writeMicroseconds(r);
+    delay(20);
 }
-else if(a>=c-5 && a<=c+5 && b>1472)
+else if(q>=w-5 && q<=w+5 && r>1472)
 {
-  b=b-5;
-  s.writeMicroseconds(b);
+  r=r-5;
+  s.writeMicroseconds(r);
+    delay(20);
 }
 }
