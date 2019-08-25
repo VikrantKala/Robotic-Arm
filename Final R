@@ -7,6 +7,7 @@ BIG ACT2: PWM - A5 p - 24 n - 25
 S1 : Signal - A0
 S2 : Signal - A2
 2 Frigly: U(1) - 5 I(2) - 6 O(3) - 3 P(4) - 4
+CE , CSN - 11 , 12
 
 */
 #include <RF24.h>
