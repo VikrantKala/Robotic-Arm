@@ -1,4 +1,10 @@
 
+/*  
+
+
+
+
+*/
 #include <RF24.h>
 #include <Wire.h>
 #include<Servo.h>
@@ -13,18 +19,21 @@
 #define A A5
 #define B A4
 #define flex_servo_pin A2
+#define ACT1 20
+#define ACT2 21
+#define ACT3 24
+#define ACT4 25
 
 RF24 radio(11,12);
 
 byte addresses[][6] = {"1Node", "2Node"};
 
-int data,a=1,i,c,d,j,y1,y2,l2=0,f1,f2,q=190,r=1472,w=190,g=125,h=125;  //190 and 125 is the initial value of the NEW FLEX 1.2 and the old one
+int data,a=1,i,c,d,j,y1,y2,l2=0,f1,f2,q,w,r=1472,w=190,g=125,h=125;  //190 and 125 is the initial value of the NEW FLEX 1.2 and the old one;
 
 Servo s1,s2;
 
 void setup() {
   Serial.begin(9600);
-  
 
   pinMode(2,OUTPUT);
   pinMode(3,OUTPUT);
@@ -110,34 +119,24 @@ int Pwr_Window()                                            //DONE
   return 0;
 }
 
-
-int Gripper_roll()
-{                                                 //DONE
-  int initial=s1.readMicroseconds();
-  //Serial.println("current pos =");
-  //Serial.println(initial);
-  forward(initial, y1, y2);
-  backward(initial, y1, y2);
-  return 0;
-}
 int flex_servo()
 {
   /*for new flex 1.2
-    c.d=46
+    c.d=46                                                              //DONE
 */
 
 //close-1592
 //open-1472
-q= f2;
+q= ::f2;
 Serial.println(q);
 delay(100);
-if(q>w+45 && r<1592)
+if((q>(w+45)) && r<(1592))
 {
   r=r+5;
 s2.writeMicroseconds(r);
     delay(20);
 }
-else if(q>=w-5 && q<=w+5 && r>1472)
+else if((q>=(w-5)) && (q<=(w+5)) && (r>1472))
 {
   r=r-5;
   s2.writeMicroseconds(r);
@@ -148,14 +147,14 @@ else if(q>=w-5 && q<=w+5 && r>1472)
 int flex_frig()
 {
 /*
-for green-grey wired flex
+for green-grey wired flex                                                   //DONE
 c.d=33
  */
 //5 input
 //6 input
 //3 input
 //4 input
-g= f1;
+g= ::f1;
 Serial.println(g);
 
  if(g>(h+32) )
@@ -166,7 +165,7 @@ Serial.println(g);
   digitalWrite(P, HIGH);
    delay(20);
  }
- else if(g>=(h-5) && g<(h+5))
+ else if((g>=(h-5)) && (g<(h+5)))
  {
   digitalWrite(U, HIGH);
   digitalWrite(I,LOW);
@@ -185,21 +184,32 @@ Serial.println(g);
 
   return 0;
 }
+
+
+int Gripper_roll()
+{                                                 //DONE
+  int initial=s1.readMicroseconds();
+  //Serial.println("current pos =");
+  //Serial.println(initial);                                           //S1 - A0
+  forward(initial, y1, y2);
+  backward(initial, y1, y2);
+  return 0;
+}
+
+
   void loop(){                              // VOID LOOP
 
 analogWrite(B,150);
 analogWrite(A,150);
   radio.startListening();
   
-
-
   if(radio.available())
   {int G1[8];
     radio.read( &G1, sizeof(G1) );
   
   if(a==1)
   {Serial.print("Slave1: ");
-  --a; c=G1[0]; ::y1=G1[1]; ++l2;::w=f2;::h=f1;
+  --a; c=G1[0]; ::y1=G1[1]; ++l2;
   c=constrain(c,0,90);
    Serial.print(c);
    Serial.println();
@@ -207,8 +217,8 @@ analogWrite(A,150);
    {
     while(c!=i)
     {
-      digitalWrite(2,HIGH);
-      digitalWrite(3,LOW);
+      digitalWrite(ACT1,HIGH);
+      digitalWrite(ACT2,LOW);
       ++i;//Serial.print("NO");
     }
    }
@@ -216,14 +226,14 @@ analogWrite(A,150);
    {
     while(c!=i)
     {
-      digitalWrite(2,LOW);
-      digitalWrite(3,HIGH);
+      digitalWrite(ACT1,LOW);
+      digitalWrite(ACT2,HIGH);
       --i;//Serial.print("YES");
     }
    }
       else
-     { digitalWrite(2,LOW);
-      digitalWrite(3,LOW);
+     { digitalWrite(ACT1,LOW);
+      digitalWrite(ACT2,LOW);
       //Serial.print("NIL");
      }
      i=c;
@@ -238,8 +248,8 @@ analogWrite(A,150);
    {
     while(d!=j)
     {
-      digitalWrite(5,HIGH);
-      digitalWrite(4,LOW);
+      digitalWrite(ACT3,HIGH);
+      digitalWrite(ACT4,LOW);
       ++j;//Serial.print("NO");
     }
    }
@@ -247,14 +257,14 @@ analogWrite(A,150);
    {
     while(d!=j)
     {
-      digitalWrite(5,LOW);
-      digitalWrite(4,HIGH);
+      digitalWrite(ACT3,LOW);
+      digitalWrite(ACT4,HIGH);
       --j;//Serial.print("YES");
     }
    }
       else
-     { digitalWrite(5,LOW);
-      digitalWrite(4,LOW);
+     { digitalWrite(ACT3,LOW);
+      digitalWrite(ACT4,LOW);
       //Serial.print("NIL");
      }
      j=d;
@@ -269,13 +279,14 @@ analogWrite(A,150);
   //Serial.println(G1[1]);
 
   ::f1 = G1[2];
-  ::f2 = G1[3];
+  ::f2 = G2[3];
   if(l2>=2)
   {
-  Gripper_roll();   //rolling the gripper with y1 and y2 readings        //DONE
-  Pwr_Window();   // power window controlled with y2                     //DONE
-  flex_servo();
-  flex_frig();
+  Gripper_roll();   //rolling the gripper with y1 and y2 readings       //DONE
+  Pwr_Window();     //power window controlled with y2                   //DONE
+  flex_frig();      //actuator controlled with flex 1                   //DONE
+  flex_servo();     //opening and closing gripper with flex 2           //DONE
+  
   }
 
 }
