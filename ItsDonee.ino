@@ -18,7 +18,7 @@ RF24 radio(11,12);
 
 byte addresses[][6] = {"1Node", "2Node"};
 
-int data,a=1,i,c,d,j,y1,y2,l2=0,f1,f2,q,w,r=1472,w=f2;
+int data,a=1,i,c,d,j,y1,y2,l2=0,f1,f2,q=190,r=1472,w=190,g=125,h=125;  //190 and 125 is the initial value of the NEW FLEX 1.2 and the old one
 
 Servo s1,s2;
 
@@ -159,8 +159,71 @@ int Gripper_roll()
   backward(initial, y1, y2);
   return 0;
 }
+int flex_servo()
+{
+  /*for new flex 1.2
+    c.d=46
+*/
 
+//close-1592
+//open-1472
+q= f2;
+Serial.println(q);
+delay(100);
+if(q>w+45 && r<1592)
+{
+  r=r+5;
+s2.writeMicroseconds(r);
+    delay(20);
+}
+else if(q>=w-5 && q<=w+5 && r>1472)
+{
+  r=r-5;
+  s2.writeMicroseconds(r);
+    delay(20);
+}
+  return 0;
+}
+int flex_frig()
+{
+/*
+for green-grey wired flex
+c.d=33
+ */
+//5 input
+//6 input
+//3 input
+//4 input
+g= f1;
+Serial.println(g);
 
+ if(g>(h+32) )
+ {
+  digitalWrite(U, LOW);
+  digitalWrite(I, HIGH);
+  digitalWrite(O, LOW);
+  digitalWrite(P, HIGH);
+   delay(20);
+ }
+ else if(g>=(h-5) && g<(h+5))
+ {
+  digitalWrite(U, HIGH);
+  digitalWrite(I,LOW);
+  digitalWrite(O, HIGH);
+  digitalWrite(P,LOW);
+   delay(20);
+ }
+ else
+ {
+  digitalWrite(U,LOW);
+  digitalWrite(I,LOW);
+  digitalWrite(O,LOW);
+  digitalWrite(P,LOW);
+   delay(20);
+ }
+
+  return 0;
+}
   void loop(){                              // VOID LOOP
 
 analogWrite(B,150);
@@ -175,7 +238,7 @@ analogWrite(A,150);
   
   if(a==1)
   {Serial.print("Slave1: ");
-  --a; c=G1[0]; ::y1=G1[1]; ++l2;
+  --a; c=G1[0]; ::y1=G1[1]; ++l2;::w=f2;::h=f1;
   c=constrain(c,0,90);
    Serial.print(c);
    Serial.println();
@@ -252,6 +315,7 @@ analogWrite(A,150);
   Pwr_Window();   // power window controlled with y2                     //DONE
   flex_actuator();  //actuator controlled with flex 
   flex_servo();
+  flex_frig();
   }
 
 }
