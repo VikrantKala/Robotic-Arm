@@ -56,16 +56,8 @@ void setup() {
   s2.writeMicroseconds(r);
   
   delay(2000);
-  
-  
-  
-
 }
  
-      
- 
-
-
 int forward(int a, int b, int c)          //for moving 
 {                                                                   //DONE
   int B = constrain(b, 1, 30);
@@ -79,6 +71,7 @@ int forward(int a, int b, int c)          //for moving
     }
     return 0;
 }
+
 int backward(int a, int b, int c)          //for moving 
 {  
   int C = constrain(b, 0, 50);
@@ -92,6 +85,7 @@ int backward(int a, int b, int c)          //for moving
     }
     return 0;
 }
+
 int Pwr_Window()                                            //DONE
 {
   if(y2<320 && y2>220)
@@ -111,44 +105,6 @@ int Pwr_Window()                                            //DONE
   }
   return 0;
 }
-
-int flex_actuator()
-{
-  
-Serial.println(b);
-delay(500);
-/* front bend (>145)
- *  back bend ( < )
- *  normal(118-129)
- */
-//5 input
-//6 input
-//3 input
-//4 input
- if(b>145 )
- {
-  digitalWrite(U, LOW);
-  digitalWrite(I, HIGH);
-  digitalWrite(O, LOW);
-  digitalWrite(P, HIGH);
- }
- else if(b>=118 && b<130)
- {
-  digitalWrite(U, HIGH);
-  digitalWrite(I,LOW);
-  digitalWrite(O, HIGH);
-  digitalWrite(P,LOW);
- }
- else
- {
-  digitalWrite(U,LOW);
-  digitalWrite(I,LOW);
-  digitalWrite(O,LOW);
-  digitalWrite(P,LOW);
- }
- return 0;
-}
-
 
 int Gripper_roll()
 {                                                 //DONE
@@ -313,7 +269,6 @@ analogWrite(A,150);
   {
   Gripper_roll();   //rolling the gripper with y1 and y2 readings        //DONE
   Pwr_Window();   // power window controlled with y2                     //DONE
-  flex_actuator();  //actuator controlled with flex 
   flex_servo();
   flex_frig();
   }
