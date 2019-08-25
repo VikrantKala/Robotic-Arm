@@ -25,7 +25,6 @@ Servo s1,s2;
 void setup() {
   Serial.begin(9600);
   
-  reset();
 
   pinMode(2,OUTPUT);
   pinMode(3,OUTPUT);
@@ -35,7 +34,6 @@ void setup() {
   pinMode(A,OUTPUT);
   pinMode(K, OUTPUT);
   pinMode(L, OUTPUT);
-  pinMode(T, INPUT);
   pinMode(U,OUTPUT);
   pinMode(I,OUTPUT);
   pinMode(O,OUTPUT);
@@ -56,8 +54,16 @@ void setup() {
   s2.writeMicroseconds(r);
   
   delay(2000);
+  
+  
+  
+
 }
  
+      
+ 
+
+
 int forward(int a, int b, int c)          //for moving 
 {                                                                   //DONE
   int B = constrain(b, 1, 30);
@@ -71,7 +77,6 @@ int forward(int a, int b, int c)          //for moving
     }
     return 0;
 }
-
 int backward(int a, int b, int c)          //for moving 
 {  
   int C = constrain(b, 0, 50);
@@ -85,7 +90,6 @@ int backward(int a, int b, int c)          //for moving
     }
     return 0;
 }
-
 int Pwr_Window()                                            //DONE
 {
   if(y2<320 && y2>220)
@@ -105,6 +109,7 @@ int Pwr_Window()                                            //DONE
   }
   return 0;
 }
+
 
 int Gripper_roll()
 {                                                 //DONE
@@ -264,7 +269,7 @@ analogWrite(A,150);
   //Serial.println(G1[1]);
 
   ::f1 = G1[2];
-  ::f2 = G2[3];
+  ::f2 = G1[3];
   if(l2>=2)
   {
   Gripper_roll();   //rolling the gripper with y1 and y2 readings        //DONE
