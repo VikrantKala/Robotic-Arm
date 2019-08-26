@@ -1,0 +1,41 @@
+Linear Actuator (Frigliiey)
+L239D-
+	Input1  - Mega 40 
+	Input2 -  Mega 42
+	Input3 - Mega 46
+	Input4 - Mega 48
+
+Linear Actuators(Big one)
+Hercules1 - 
+	+ve= Mega22
+	-ve= Mega26
+	PWM - Mega3
+	GND
+Hercules2-
+	+ve=Mega31
+	-ve=Mega35
+	PWM - Mega5
+	GND
+
+Power Window
+Hercules3-
+	+ve=Mega39 
+	-ve=Mega43
+	PWM - Mega7
+	GND
+	
+Servo (Hs785hb)
+S1-
+	PWM-MegaA3
+S2- 
+	PWM-MegaA5
+
+NRF (Pending - yet to be finaliseda)
+	SCL
+	SDA
+	
+
+
+
+
+
