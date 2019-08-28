@@ -1,3 +1,4 @@
+
 #include "Arduino.h"
 #include <SPI.h>
 #include <RF24.h>
@@ -10,7 +11,7 @@ byte addresses[][6] = {"1Node", "2Node"};
 
 int data,a=1,i,c,d,j;
 
-double v[10];
+
 
 void setup() {
   Serial.begin(9600);
@@ -50,7 +51,7 @@ analogWrite(A1,150);
  
   if(radio.available())
   {int G1[8];
-    radio.read( &G1, sizeof(int) );
+    radio.read( &G1, sizeof(G1) );
   
   if(a==1)
   {Serial.print("Slave1: ");
@@ -117,6 +118,7 @@ analogWrite(A1,150);
   else
   Serial.print("Invalid: ");
   Serial.println(G1[0]);
+  Serial.println(G1[1]);
 //  radio.read( &G2, sizeof(int) );
 //   Serial.print("Slave2: ");
 //  Serial.println(G2);
