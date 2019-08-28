@@ -10,7 +10,7 @@ byte addresses[][6] = {"", "2Node"};
 const int MPU1=0x68,MPU2=0x69;  
 int AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ,x,y,z;
 int x1,y1,x2,y2;
-int minVal=265, maxVal=402, data;
+int minVal=265, maxVal=402;
 
 int v[6]; 
 
