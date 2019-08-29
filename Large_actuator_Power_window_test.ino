@@ -22,6 +22,7 @@
 #define L 10 
 #define y2_max 40
 #define y2_min 320
+#define Hercules_pwm_pw 6
 
 
 RF24 radio(7, 8);
@@ -37,6 +38,7 @@ void setup() {
   pinMode(Large_actuator_2_2,OUTPUT);
   pinMode(Hercules_pwm_1,OUTPUT);
   pinMode(Hercules_pwm_2,OUTPUT);
+  pinMode(Hercules_pwm_pw,OUTPUT);
   pinMode(K, OUTPUT);
   pinMode(L, OUTPUT);
   radio.begin();  
@@ -49,15 +51,16 @@ void setup() {
   
   analogWrite(Hercules_pwm_1,150);
   analogWrite(Hercules_pwm_2,150);
+  analogWrite(Hercules_pwm_2,150);
+ 
   radio.startListening();
      
   if(radio.available())
   {
     radio.read( &v, sizeof(v) );
-  }
     Large_actuators(v);
     Power_window(v);
-    
+  }
     delay(1000);
   }
 
