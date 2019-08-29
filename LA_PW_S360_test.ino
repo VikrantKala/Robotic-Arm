@@ -73,7 +73,7 @@ void setup() {
   }
 
 
-int  Large_actuators(int v[6])
+int  Large_actuators(int v[])
   {
     //v[0]=constrain(v[0], , ); // USE IF NECESSARY
     if(v[0]>angle_forward_1 && v[0]<angle_max_1)
