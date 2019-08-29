@@ -50,10 +50,7 @@ void setup() {
     v[5]=analogRead(flex_pin_2);
     
     radio.stopListening();
-    if(radio.available())
-    {
-      radio.write(&v, sizeof(v));
-    }
+    radio.write(&v, sizeof(v));
     delay(1000);
 }
 
