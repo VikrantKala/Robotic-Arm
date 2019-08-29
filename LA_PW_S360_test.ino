@@ -48,7 +48,7 @@ void setup() {
   pinMode(L, OUTPUT);
   s_360.attach(s_360_pin);
   s_360.writeMicroseconds(1500);
-  delay(100);
+  delay(20);
   radio.begin();
   radio.setPALevel(RF24_PA_MIN);
  
@@ -82,20 +82,22 @@ int  Large_actuators(int v[6])
       {
       digitalWrite(Large_actuator_1_1, HIGH);
       digitalWrite(Large_actuator_1_2, LOW);
-      delay(20);
+      }
+      else
+      {
+      digitalWrite(Large_actuator_1_1, LOW);
+      digitalWrite(Large_actuator_1_2, LOW);
       }
     }
     else if(v[0]<angle_backward_1 && v[0]>angle_min_1)
     {
       digitalWrite(Large_actuator_1_1, LOW);
       digitalWrite(Large_actuator_1_2, HIGH);
-      delay(20);
     }
     else if(v[0]<=angle_forward_1 && v[0]>=angle_backward_1)
     {
       digitalWrite(Large_actuator_1_1, LOW);
       digitalWrite(Large_actuator_1_2, LOW);
-      delay(20);
     }
 
     //v[2]=constrain(v[2], , ); // USE IF NECESSARY
@@ -105,20 +107,22 @@ int  Large_actuators(int v[6])
       {
       digitalWrite(Large_actuator_2_1, HIGH);
       digitalWrite(Large_actuator_2_2, LOW);
-      delay(20);
+      }
+      else
+      {
+      digitalWrite(Large_actuator_2_1, LOW);
+      digitalWrite(Large_actuator_2_2, LOW);
       }
     }
     else if(v[2]<angle_backward_2 && v[2]>angle_min_2)
     {
       digitalWrite(Large_actuator_2_1, LOW);
       digitalWrite(Large_actuator_2_2, HIGH);
-      delay(20);
     }
     else if(v[2]<=angle_forward_2 && v[2]>=angle_backward_2)
     {
       digitalWrite(Large_actuator_2_1, LOW);
       digitalWrite(Large_actuator_2_2, LOW);
-      delay(20);
     }
     return 0;
   }
@@ -152,7 +156,6 @@ int Servo_Gripper_Rotation(int y1, int y2)
     Serial.println(current);
     forward(current, y1, y2);
     backward(current, y1, y2);
-    delay(1000);
     return 0;
   }
  
@@ -163,9 +166,6 @@ int Servo_Gripper_Rotation(int y1, int y2)
     {
       s_360.writeMicroseconds(a);
       a=a+25;
-      delay(150);
-      Serial.println("Current pos after forward = ");
-      Serial.println(a);
     }
     return 0;
 }
@@ -176,9 +176,6 @@ int backward(int a, int b, int c)          //for moving backward
     {
       s_360.writeMicroseconds(a);
       a=a-25;
-      delay(150);
-      Serial.println("Current pos after backward = ");
-      Serial.println(a);
     }
     return 0;
 }
