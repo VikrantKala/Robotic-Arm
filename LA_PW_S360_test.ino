@@ -1,0 +1,184 @@
+#include <RF24.h>
+#include <Servo.h>
+
+//Large Linear Actuator
+#define Large_actuator_1_1 2
+#define Large_actuator_1_2 3
+#define Large_actuator_2_1 5
+#define Large_actuator_2_2 4
+#define Hercules_pwm_1 A0
+#define Hercules_pwm_2 A1
+#define angle_forward_1 30
+#define angle_max_1 90
+#define angle_backward_1 330
+#define angle_min_1 270
+#define angle_forward_2 30
+#define angle_max_2 90
+#define angle_backward_2 330
+#define angle_min_2 270
+#define LA_feedback A7
+#define LA_MAX 800
+
+//Power Window
+#define K 9
+#define L 10 
+#define y2_max 40
+#define y2_min 320
+#define Hercules_pwm_pw 6
+
+//Servo_Gripper_Rotation
+#define s_360_pin A4
+
+RF24 radio(7, 8);
+
+byte addresses[][6] = {"", "2Node"};
+int v[6];
+Servo s_360;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(Large_actuator_1_1,OUTPUT);
+  pinMode(Large_actuator_1_2,OUTPUT);
+  pinMode(Large_actuator_2_1,OUTPUT);
+  pinMode(Large_actuator_2_2,OUTPUT);
+  pinMode(Hercules_pwm_1,OUTPUT);
+  pinMode(Hercules_pwm_2,OUTPUT);
+  pinMode(Hercules_pwm_pw,OUTPUT);
+  pinMode(K, OUTPUT);
+  pinMode(L, OUTPUT);
+  s_360.attach(s_360_pin);
+  s_360.writeMicroseconds(1500);
+  delay(100);
+  radio.begin();
+  radio.setPALevel(RF24_PA_MIN);
+ 
+  radio.openReadingPipe(1,addresses[1]);
+   }
+ 
+  void loop(){ 
+  
+  analogWrite(Hercules_pwm_1,150);
+  analogWrite(Hercules_pwm_2,150);
+  analogWrite(Hercules_pwm_pw,150);
+  radio.startListening();
+     
+  if(radio.available())
+  {
+    radio.read( &v, sizeof(v) );
+    Large_actuators(v);
+    Power_window(v);
+    Servo_Gripper_Rotation(v[1], v[3]);
+  }
+    delay(1000);
+  }
+
+
+int  Large_actuators(int v[6])
+  {
+    //v[0]=constrain(v[0], , ); // USE IF NECESSARY
+    if(v[0]>angle_forward_1 && v[0]<angle_max_1)
+    {
+      if(analogRead(LA_feedback)<LA_MAX)
+      {
+      digitalWrite(Large_actuator_1_1, HIGH);
+      digitalWrite(Large_actuator_1_2, LOW);
+      delay(20);
+      }
+    }
+    else if(v[0]<angle_backward_1 && v[0]>angle_min_1)
+    {
+      digitalWrite(Large_actuator_1_1, LOW);
+      digitalWrite(Large_actuator_1_2, HIGH);
+      delay(20);
+    }
+    else if(v[0]<=angle_forward_1 && v[0]>=angle_backward_1)
+    {
+      digitalWrite(Large_actuator_1_1, LOW);
+      digitalWrite(Large_actuator_1_2, LOW);
+      delay(20);
+    }
+
+    //v[2]=constrain(v[2], , ); // USE IF NECESSARY
+    if(v[2]>angle_forward_2 && v[2]<angle_max_2)
+    {
+      if(analogRead(LA_feedback)<LA_MAX)
+      {
+      digitalWrite(Large_actuator_2_1, HIGH);
+      digitalWrite(Large_actuator_2_2, LOW);
+      delay(20);
+      }
+    }
+    else if(v[2]<angle_backward_2 && v[2]>angle_min_2)
+    {
+      digitalWrite(Large_actuator_2_1, LOW);
+      digitalWrite(Large_actuator_2_2, HIGH);
+      delay(20);
+    }
+    else if(v[2]<=angle_forward_2 && v[2]>=angle_backward_2)
+    {
+      digitalWrite(Large_actuator_2_1, LOW);
+      digitalWrite(Large_actuator_2_2, LOW);
+      delay(20);
+    }
+    return 0;
+  }
+
+  int Power_window(int v[6])
+  {
+    if(v[3]<=y2_min && v[3]>220)
+  {
+    digitalWrite(K, HIGH);
+    digitalWrite(L, LOW);
+    delay(20);
+  }
+  else if(v[3]>=y2_max && v[3]<140)
+  {
+    digitalWrite(K, LOW);
+    digitalWrite(L, HIGH);
+    delay(20);
+  }
+  else if(v[3]>y2_min && v[3]<y2_max)
+  {
+    digitalWrite(K, HIGH);
+    digitalWrite(L, HIGH);
+    delay(20);
+  }
+  }
+
+int Servo_Gripper_Rotation(int y1, int y2)
+  {
+    int current=s_360.readMicroseconds();
+    Serial.println("current pos =");
+    Serial.println(current);
+    forward(current, y1, y2);
+    backward(current, y1, y2);
+    delay(1000);
+    return 0;
+  }
+ 
+  int forward(int a, int b, int c)          //for moving forward
+{  
+  int B = constrain(b, 1, 30);
+  if(B<15 && c>320)
+    {
+      s_360.writeMicroseconds(a);
+      a=a+25;
+      delay(150);
+      Serial.println("Current pos after forward = ");
+      Serial.println(a);
+    }
+    return 0;
+}
+int backward(int a, int b, int c)          //for moving backward
+{  
+  int C = constrain(b, 0, 50);
+  if(C>45 && c<40)
+    {
+      s_360.writeMicroseconds(a);
+      a=a-25;
+      delay(150);
+      Serial.println("Current pos after backward = ");
+      Serial.println(a);
+    }
+    return 0;
+}
