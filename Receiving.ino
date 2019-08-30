@@ -44,12 +44,60 @@ int servo_initial = 1500;
 #define servo_open 1472
 #define servo_speed 20
 
+#include <RF24.h>
+#include <Servo.h>
+
+//Large Linear Actuator
+#define Large_actuator_1_1 2
+#define Large_actuator_1_2 3
+#define Large_actuator_2_1 5
+#define Large_actuator_2_2 4
+#define Hercules_pwm_1 A0
+#define Hercules_pwm_2 A1
+#define angle_forward_1 30
+#define angle_max_1 90
+#define angle_backward_1 330
+#define angle_min_1 270
+#define angle_forward_2 30
+#define angle_max_2 90
+#define angle_backward_2 330
+#define angle_min_2 270
+#define LA_feedback A7
+#define LA_MAX 800
+
+//Power Window
+#define K 9
+#define L 10 
+#define y2_max 40
+#define y2_min 320
+#define Hercules_pwm_pw 6
+
+//Servo_Gripper_Rotation
+#define s_360_pin A4
+#define s_360_initial 1500
+#define Servo_rotation_speed 25
+
+//Frigliee actuators
+#define U 40
+#define I 42
+#define O 46
+#define P 48
+#define flex_diff_1 35
+
+//Flex Servo(Hs785hb)
+#define flex_servo_pin A7
+int servo_current = 1500;
+#define servo_close 1592
+#define servo_open 1472
+#define servo_speed 20
+#define flex_diff_2 45
+
 RF24 radio(7, 8);
 
 byte addresses[][6] = {"", "2Node"};
 int v[6];
 Servo s_360, s_flex;
-int g,h,x,t=0,q,w,m=0;
+int g,h,t=0,q,w,m=0;
 
 void setup() {
   Serial.begin(9600);
@@ -70,7 +118,7 @@ void setup() {
   s_360.attach(s_360_pin);
   s_360.writeMicroseconds(s_360_initial);
   s_flex.attach(flex_servo_pin);
-  s_flex.writeMicroseconds(servo_initial);
+  s_flex.writeMicroseconds(servo_current);
   delay(20);
   radio.begin();
   radio.setPALevel(RF24_PA_MIN);
@@ -152,25 +200,22 @@ int  Large_actuators(int v[])
     return 0;
   }
 
-  int Power_window(int v[6])
+  int Power_window(int v[])
   {
     if(v[3]<=y2_min && v[3]>220)
   {
     digitalWrite(K, HIGH);
     digitalWrite(L, LOW);
-    delay(20);
   }
   else if(v[3]>=y2_max && v[3]<140)
   {
     digitalWrite(K, LOW);
     digitalWrite(L, HIGH);
-    delay(20);
   }
-  else if(v[3]>y2_min && v[3]<y2_max)
+  else if(v[3]>y2_min || v[3]<y2_max)
   {
-    digitalWrite(K, HIGH);
-    digitalWrite(L, HIGH);
-    delay(20);
+    digitalWrite(K, LOW);
+    digitalWrite(L, LOW);
   }
   }
 
@@ -207,14 +252,13 @@ int backward(int a, int b, int c)          //for moving backward
 
 int Flex_frig(int a)
 {
-    x=a;
   if(t==0)
   {
-    g=x;
+    g=a;
     ++t;
   }
   h=a;
- if(g>(h+32) )
+ if(g>(h+flex_diff_1) )
  {
   digitalWrite(U, LOW);
   digitalWrite(I, HIGH);
@@ -246,15 +290,15 @@ if(m==0)
   m++;
 }
 q= s;
-if(q>w+45 && servo_initial<servo_close)
+if(q>w+flex_diff_2 && servo_current<servo_close)
 {
-  servo_initial=servo_initial+servo_speed;
-  s_flex.writeMicroseconds(servo_initial);
+  servo_current=servo_current+servo_speed;
+  s_flex.writeMicroseconds(servo_current);
 }
-else if(q>=w-5 && q<=w+5 && servo_initial>servo_open)
+else if(q>=(w-5) && q<=(w+5) && servo_current>servo_open)
 {
-  servo_initial = (servo_initial-servo_speed);
-  s_flex.writeMicroseconds(servo_initial);
+  servo_current = (servo_current-servo_speed);
+  s_flex.writeMicroseconds(servo_current);
 }
   return 0;
 }
