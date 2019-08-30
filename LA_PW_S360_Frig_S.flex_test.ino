@@ -152,7 +152,7 @@ int  Large_actuators(int v[])
     return 0;
   }
 
-  int Power_window(int v[6])
+  int Power_window(int v[])
   {
     if(v[3]<=y2_min && v[3]>220)
   {
