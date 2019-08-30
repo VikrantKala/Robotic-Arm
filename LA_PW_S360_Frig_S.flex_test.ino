@@ -158,19 +158,16 @@ int  Large_actuators(int v[])
   {
     digitalWrite(K, HIGH);
     digitalWrite(L, LOW);
-    delay(20);
   }
   else if(v[3]>=y2_max && v[3]<140)
   {
     digitalWrite(K, LOW);
     digitalWrite(L, HIGH);
-    delay(20);
   }
-  else if(v[3]>y2_min && v[3]<y2_max)
+  else if(v[3]>y2_min || v[3]<y2_max)
   {
-    digitalWrite(K, HIGH);
-    digitalWrite(L, HIGH);
-    delay(20);
+    digitalWrite(K, LOW);
+    digitalWrite(L, LOW);
   }
   }
 
