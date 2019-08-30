@@ -249,7 +249,7 @@ if(q>w+flex_diff_2 && servo_current<servo_close)
   servo_current=servo_current+servo_speed;
   s_flex.writeMicroseconds(servo_current);
 }
-else if(q>=w-5 && q<=w+5 && servo_current>servo_open)
+else if(q>=(w-5) && q<=(w+5) && servo_current>servo_open)
 {
   servo_current = (servo_current-servo_speed);
   s_flex.writeMicroseconds(servo_current);
