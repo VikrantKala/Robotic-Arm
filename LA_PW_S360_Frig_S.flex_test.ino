@@ -40,7 +40,7 @@
 
 //Flex Servo(Hs785hb)
 #define flex_servo_pin A7
-int servo_initial = 1500;
+int servo_current = 1500;
 #define servo_close 1592
 #define servo_open 1472
 #define servo_speed 20
@@ -72,7 +72,7 @@ void setup() {
   s_360.attach(s_360_pin);
   s_360.writeMicroseconds(s_360_initial);
   s_flex.attach(flex_servo_pin);
-  s_flex.writeMicroseconds(servo_initial);
+  s_flex.writeMicroseconds(servo_current);
   delay(20);
   radio.begin();
   radio.setPALevel(RF24_PA_MIN);
@@ -244,15 +244,15 @@ if(m==0)
   m++;
 }
 q= s;
-if(q>w+flex_diff_2 && servo_initial<servo_close)
+if(q>w+flex_diff_2 && servo_current<servo_close)
 {
-  servo_initial=servo_initial+servo_speed;
-  s_flex.writeMicroseconds(servo_initial);
+  servo_current=servo_current+servo_speed;
+  s_flex.writeMicroseconds(servo_current);
 }
-else if(q>=w-5 && q<=w+5 && servo_initial>servo_open)
+else if(q>=w-5 && q<=w+5 && servo_current>servo_open)
 {
-  servo_initial = (servo_initial-servo_speed);
-  s_flex.writeMicroseconds(servo_initial);
+  servo_current = (servo_current-servo_speed);
+  s_flex.writeMicroseconds(servo_current);
 }
   return 0;
 }
