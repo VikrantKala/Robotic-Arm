@@ -36,6 +36,7 @@
 #define I 42
 #define O 46
 #define P 48
+#define flex_diff_1 35
 
 //Flex Servo(Hs785hb)
 #define flex_servo_pin A7
@@ -43,13 +44,14 @@ int servo_initial = 1500;
 #define servo_close 1592
 #define servo_open 1472
 #define servo_speed 20
+#define flex_diff_2 45
 
 RF24 radio(7, 8);
 
 byte addresses[][6] = {"", "2Node"};
 int v[6];
 Servo s_360, s_flex;
-int g,h,x,t=0,q,w,m=0;
+int g,h,t=0,q,w,m=0;
 
 void setup() {
   Serial.begin(9600);
@@ -204,14 +206,13 @@ int backward(int a, int b, int c)          //for moving backward
 
 int Flex_frig(int a)
 {
-    x=a;
   if(t==0)
   {
-    g=x;
+    g=a;
     ++t;
   }
   h=a;
- if(g>(h+32) )
+ if(g>(h+flex_diff_1) )
  {
   digitalWrite(U, LOW);
   digitalWrite(I, HIGH);
@@ -243,7 +244,7 @@ if(m==0)
   m++;
 }
 q= s;
-if(q>w+45 && servo_initial<servo_close)
+if(q>w+flex_diff_2 && servo_initial<servo_close)
 {
   servo_initial=servo_initial+servo_speed;
   s_flex.writeMicroseconds(servo_initial);
