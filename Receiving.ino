@@ -104,16 +104,9 @@ int  Large_actuators(int v[])
     //v[0]=constrain(v[0], , ); // USE IF NECESSARY
     if(v[0]>angle_forward_1 && v[0]<angle_max_1)
     {
-      if(analogRead(LA_feedback)<LA_MAX)
-      {
       digitalWrite(Large_actuator_1_1, HIGH);
       digitalWrite(Large_actuator_1_2, LOW);
-      }
-      else
-      {
-      digitalWrite(Large_actuator_1_1, LOW);
-      digitalWrite(Large_actuator_1_2, LOW);
-      }
+    }
     }
     else if(v[0]<angle_backward_1 && v[0]>angle_min_1)
     {
@@ -129,16 +122,10 @@ int  Large_actuators(int v[])
     //v[2]=constrain(v[2], , ); // USE IF NECESSARY
     if(v[2]>angle_forward_2 && v[2]<angle_max_2)
     {
-      if(analogRead(LA_feedback)<LA_MAX)
-      {
       digitalWrite(Large_actuator_2_1, HIGH);
       digitalWrite(Large_actuator_2_2, LOW);
-      }
-      else
-      {
-      digitalWrite(Large_actuator_2_1, LOW);
-      digitalWrite(Large_actuator_2_2, LOW);
-      }
+    }
+      
     }
     else if(v[2]<angle_backward_2 && v[2]>angle_min_2)
     {
