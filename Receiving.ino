@@ -51,6 +51,7 @@ int i=0,x;
 
 void setup() {
   Serial.begin(9600);
+  Serial1.begin(9600);
   pinMode(Large_actuator_1_1,OUTPUT);
   pinMode(Large_actuator_1_2,OUTPUT);
   pinMode(Large_actuator_2_1,OUTPUT);
@@ -224,7 +225,7 @@ if(Serial.available()>0)
   {
   if(i<6)
   {
-   x = Serial.read();
+   x = Serial1.read();
    v[i]=x;
    Serial.println(v[i]);
    i++;
