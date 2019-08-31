@@ -29,17 +29,17 @@ void setup() {
   Wire.write(0); 
   Wire.endTransmission(true); 
   Serial.begin(9600); 
-  Serial1.begin(9600);
+ 
   } 
  
   void loop(){ 
-    Serial.print("First\n");
+    //Serial.print("First\n");
     angles(MPU1, x1, y1);
-    Serial.println("--------------------");
+    //Serial.println("--------------------");
 
-    Serial.print("Second \n");
+   // Serial.print("Second \n");
     angles(MPU2, x2, y2);
-    Serial.print("----------------------------\n");
+    //Serial.print("----------------------------\n");
    
     v[0]=x1;v[1]=y1;v[2]=x2;v[3]=y2;
 
@@ -47,22 +47,23 @@ void setup() {
     v[5]=analogRead(flex_pin_2);
     
      if(p==0)
-    Serial1.write(v[0]); 
+    Serial.write(v[0]); 
     else if(p==1)
-    Serial1.write(v[1]);
+    Serial.write(v[1]);
     else if(p==2)
-    Serial1.write(v[2]);
+    Serial.write(v[2]);
     else if(p==3)
-    Serial1.write(v[3]); 
+    Serial.write(v[3]); 
     else if(p==4)
-    Serial1.write(v[4]);
+    Serial.write(v[4]);
     else if(p==5)
-    Serial1.write(v[5]);
+    Serial.write(v[5]);
     
     p++;
 
    if(p>6)
     p=0;
+    
     
     delay(20);
 }
