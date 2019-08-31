@@ -1,14 +1,13 @@
-#include <RF24.h>
+
 #include<Wire.h>
 
 #define flex_pin_1 A1
 #define flex_pin_2 A2
 
-RF24 radio(7, 8);
 
 byte addresses[][6] = {"", "2Node"};
 const int MPU1=0x68,MPU2=0x69;  
-int AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ,x,y,z;
+int AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ,x,y,z,p;
 int x1,y1,x2,y2;
 int minVal=265, maxVal=402;
 
@@ -16,10 +15,7 @@ int v[6];
 
 void setup() {
   
-  radio.begin();
-  radio.setPALevel(RF24_PA_MIN);
-  
-  radio.openWritingPipe(addresses[1]);
+
 
   Wire.begin(); 
   Wire.beginTransmission(MPU1); 
@@ -33,6 +29,7 @@ void setup() {
   Wire.write(0); 
   Wire.endTransmission(true); 
   Serial.begin(9600); 
+  Serial1.begin(9600);
   } 
  
   void loop(){ 
@@ -43,15 +40,31 @@ void setup() {
     Serial.print("Second \n");
     angles(MPU2, x2, y2);
     Serial.print("----------------------------\n");
-    
+   
     v[0]=x1;v[1]=y1;v[2]=x2;v[3]=y2;
 
     v[4]=analogRead(flex_pin_1);
     v[5]=analogRead(flex_pin_2);
     
-    radio.stopListening();
-    radio.write(&v, sizeof(v));
-    delay(1000);
+     if(p==0)
+    Serial1.write(v[0]); 
+    else if(p==1)
+    Serial1.write(v[1]);
+    else if(p==2)
+    Serial1.write(v[2]);
+    else if(p==3)
+    Serial1.write(v[3]); 
+    else if(p==4)
+    Serial1.write(v[4]);
+    else if(p==5)
+    Serial1.write(v[5]);
+    
+    p++;
+
+   if(p>6)
+    p=0;
+    
+    delay(20);
 }
 
 void angles(const int MPU, int &a, int &b)
