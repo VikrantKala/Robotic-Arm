@@ -2,43 +2,41 @@
 
 //Large Linear Actuator
 #define Large_actuator_1_1 2
-#define Large_actuator_1_2 3
-#define Large_actuator_2_1 5
-#define Large_actuator_2_2 4
-#define Hercules_pwm_1 A0
-#define Hercules_pwm_2 A1
-#define angle_forward_1 30
+#define Large_actuator_1_2 4
+#define Large_actuator_2_1 6
+#define Large_actuator_2_2 10
+#define Hercules_pwm_1 3
+#define Hercules_pwm_2 9
+#define angle_forward_1 75
 #define angle_max_1 90
-#define angle_backward_1 330
-#define angle_min_1 270
-#define angle_forward_2 30
+#define angle_backward_1 25
+#define angle_min_1 0
+#define angle_forward_2 75
 #define angle_max_2 90
-#define angle_backward_2 330
-#define angle_min_2 270
-#define LA_feedback A7
-#define LA_MAX 800
+#define angle_backward_2 25
+#define angle_min_2 0
 
 //Power Window
-#define K 9
-#define L 10 
+#define K 39
+#define L 43 
 #define y2_max 40
 #define y2_min 320
-#define Hercules_pwm_pw 6
+#define Hercules_pwm_pw 7
 
 //Servo_Gripper_Rotation
-#define s_360_pin A4
+#define s_360_pin A3
 #define s_360_initial 1500
 #define Servo_rotation_speed 25
 
 //Frigliee actuators
-#define U 40
-#define I 42
-#define O 46
-#define P 48
+#define U 35
+#define I 37
+#define O 39
+#define P 41
 #define flex_diff_1 35
 
 //Flex Servo(Hs785hb)
-#define flex_servo_pin A7
+#define flex_servo_pin A5
 int servo_current = 1500;
 #define servo_close 1592
 #define servo_open 1472
@@ -46,6 +44,7 @@ int servo_current = 1500;
 #define flex_diff_2 45
 
 int v[6];
+  
 Servo s_360, s_flex;
 int g,h,t=0,q,w,m=0;
 int i=0,x;
@@ -73,45 +72,19 @@ void setup() {
   delay(20); 
    }
  
-  void loop(){ 
-  
-  analogWrite(Hercules_pwm_1,150);
-  analogWrite(Hercules_pwm_2,150);
-  analogWrite(Hercules_pwm_pw,150);
-if(Serial.available()>0)
-  {
-  if(i<6)
-  {
-   x = Serial.read();
-   v[i]=x;
-   Serial.println(v[i]);
-   i++;
-  }
-    else{
-    Large_actuators(v);
-    Power_window(v);
-    Servo_Gripper_Rotation(v[1], v[3]);
-    Flex_frig(v[4]);
-    Flex_servo(v[5]);
-    i=0;
-    }
-  }
-  }
-
 
 int  Large_actuators(int v[])
   {
     //v[0]=constrain(v[0], , ); // USE IF NECESSARY
     if(v[0]>angle_forward_1 && v[0]<angle_max_1)
     {
-      digitalWrite(Large_actuator_1_1, HIGH);
-      digitalWrite(Large_actuator_1_2, LOW);
-    }
+      digitalWrite(Large_actuator_1_1, LOW);
+      digitalWrite(Large_actuator_1_2, HIGH);
     }
     else if(v[0]<angle_backward_1 && v[0]>angle_min_1)
     {
-      digitalWrite(Large_actuator_1_1, LOW);
-      digitalWrite(Large_actuator_1_2, HIGH);
+      digitalWrite(Large_actuator_1_1, HIGH);
+      digitalWrite(Large_actuator_1_2, LOW);
     }
     else if(v[0]<=angle_forward_1 && v[0]>=angle_backward_1)
     {
@@ -124,8 +97,6 @@ int  Large_actuators(int v[])
     {
       digitalWrite(Large_actuator_2_1, HIGH);
       digitalWrite(Large_actuator_2_2, LOW);
-    }
-      
     }
     else if(v[2]<angle_backward_2 && v[2]>angle_min_2)
     {
@@ -242,3 +213,29 @@ else if(q>=(w-5) && q<=(w+5) && servo_current>servo_open)
 }
   return 0;
 }
+
+
+  void loop(){ 
+  
+  analogWrite(Hercules_pwm_1,150);
+  analogWrite(Hercules_pwm_2,150);
+  analogWrite(Hercules_pwm_pw,150);
+if(Serial.available()>0)
+  {
+  if(i<6)
+  {
+   x = Serial.read();
+   v[i]=x;
+   Serial.println(v[i]);
+   i++;
+  }
+    else{
+    Large_actuators(v);
+    Power_window(v);
+    Servo_Gripper_Rotation(v[1], v[3]);
+    Flex_frig(v[4]);
+    Flex_servo(v[5]);
+    i=0;
+    }
+  }
+ }
