@@ -1,50 +1,3 @@
-#include <RF24.h>
-#include <Servo.h>
-
-//Large Linear Actuator
-#define Large_actuator_1_1 2
-#define Large_actuator_1_2 3
-#define Large_actuator_2_1 5
-#define Large_actuator_2_2 4
-#define Hercules_pwm_1 A0
-#define Hercules_pwm_2 A1
-#define angle_forward_1 30
-#define angle_max_1 90
-#define angle_backward_1 330
-#define angle_min_1 270
-#define angle_forward_2 30
-#define angle_max_2 90
-#define angle_backward_2 330
-#define angle_min_2 270
-#define LA_feedback A7
-#define LA_MAX 800
-
-//Power Window
-#define K 9
-#define L 10 
-#define y2_max 40
-#define y2_min 320
-#define Hercules_pwm_pw 6
-
-//Servo_Gripper_Rotation
-#define s_360_pin A4
-#define s_360_initial 1500
-#define Servo_rotation_speed 25
-
-//Frigliee actuators
-#define U 40
-#define I 42
-#define O 46
-#define P 48
-
-//Flex Servo(Hs785hb)
-#define flex_servo_pin A7
-int servo_initial = 1500;
-#define servo_close 1592
-#define servo_open 1472
-#define servo_speed 20
-
-#include <RF24.h>
 #include <Servo.h>
 
 //Large Linear Actuator
@@ -92,12 +45,10 @@ int servo_current = 1500;
 #define servo_speed 20
 #define flex_diff_2 45
 
-RF24 radio(7, 8);
-
-byte addresses[][6] = {"", "2Node"};
 int v[6];
 Servo s_360, s_flex;
 int g,h,t=0,q,w,m=0;
+int i=0,x;
 
 void setup() {
   Serial.begin(9600);
@@ -119,11 +70,7 @@ void setup() {
   s_360.writeMicroseconds(s_360_initial);
   s_flex.attach(flex_servo_pin);
   s_flex.writeMicroseconds(servo_current);
-  delay(20);
-  radio.begin();
-  radio.setPALevel(RF24_PA_MIN);
- 
-  radio.openReadingPipe(1,addresses[1]);
+  delay(20); 
    }
  
   void loop(){ 
@@ -131,18 +78,24 @@ void setup() {
   analogWrite(Hercules_pwm_1,150);
   analogWrite(Hercules_pwm_2,150);
   analogWrite(Hercules_pwm_pw,150);
-  radio.startListening();
-     
-  if(radio.available())
+if(Serial.available()>0)
   {
-    radio.read( &v, sizeof(v) );
+  if(i<6)
+  {
+   x = Serial.read();
+   v[i]=x;
+   Serial.println(v[i]);
+   i++;
+  }
+    else{
     Large_actuators(v);
     Power_window(v);
     Servo_Gripper_Rotation(v[1], v[3]);
     Flex_frig(v[4]);
     Flex_servo(v[5]);
+    i=0;
+    }
   }
-    delay(1000);
   }
 
 
