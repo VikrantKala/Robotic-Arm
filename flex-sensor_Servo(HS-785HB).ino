@@ -3,6 +3,9 @@
 int q,w;
 int r=1472;
 Servo s2; 
+
+
+
 void setup()
 {
   Serial.begin(2400);
@@ -11,6 +14,7 @@ void setup()
   w=f2;
   
 }
+
 void loop()
 {
     /*for new flex 1.2

@@ -6,6 +6,7 @@
 #define P 4
 int g,h;
 
+
 void setup()
 {
   Serial.begin(2400);

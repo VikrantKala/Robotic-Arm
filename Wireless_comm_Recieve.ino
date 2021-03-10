@@ -23,21 +23,14 @@ void setup() {
   //pinMode(A0,OUTPUT);
   pinMode(11,OUTPUT);
   radio.begin();
-
   
   radio.setPALevel(RF24_PA_MIN);
-
   
  // radio.setDataRate(RF24_2MBPS);
-
   
   //radio.setChannel(124);
 
-  
   radio.openReadingPipe(1,addresses[1]);
-
-
-  
   
 }
  

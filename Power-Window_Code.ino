@@ -6,6 +6,7 @@
 int y2;
 //y2(range)=320 and 40 
 
+
 void setup() {
   Serial.begin(9600);
   pinMode(K, OUTPUT);

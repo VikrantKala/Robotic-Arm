@@ -1,9 +1,13 @@
 int a;
+
+
 void setup()
 {
   Serial.begin(2400);
   pinMode(A1, INPUT);
 }
+
+
 void loop()
 {
 a= analogRead(A1);

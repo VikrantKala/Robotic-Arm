@@ -8,9 +8,6 @@ RF24 radio(7, 8);
 
 byte addresses[][6] = {"1Node", "2Node"};
 
-// -----------------------------------------------------------------------------
-// SETUP   SETUP   SETUP   SETUP   SETUP   SETUP   SETUP   SETUP   SETUP
-// -----------------------------------------------------------------------------
 void setup() {
   Serial.begin(9600);
   Serial.println("THIS IS THE TRANSMITTER CODE - YOU NEED THE OTHER ARDIUNO TO SEND BACK A RESPONSE");
@@ -35,9 +32,7 @@ void setup() {
   randomSeed(analogRead(A0));
 }
 
-// -----------------------------------------------------------------------------
-// LOOP     LOOP     LOOP     LOOP     LOOP     LOOP     LOOP     LOOP     LOOP
-// -----------------------------------------------------------------------------
+
 void loop() {
 
   // Generate a single random character to transmit

@@ -53,6 +53,7 @@ void reset() //Initialising the SERVO, with the mid position
     }
   }
 }
+
 void attach_servo() // attaching the servo to the desired pin of Arduino mega which is to be inputed from the Arduino UNO
 {
     s.attach(mega_pin);
