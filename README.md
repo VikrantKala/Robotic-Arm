@@ -34,10 +34,6 @@ Hardware Used :-
     ->  Power Window Motor
     ->  Arduino Mega
 
-Gripper_roll();   //rolling the gripper with y1 and y2 readings       //DONE
-  Pwr_Window();     //power window controlled with y2                   //DONE
-  flex_frig();      //actuator controlled with flex 1                   //DONE
-  flex_servo();     //opening and closing gripper with flex 2           //DONE
 
 The concept behind the Robotic Arm is as follows:-
 
