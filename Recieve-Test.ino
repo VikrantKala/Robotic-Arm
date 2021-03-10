@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include <SPI.h>
-#include <RF24.h>
+#include <RF24.h>  
+// Download the header file extensions/packages before running 
 
 // This is just the way the RF24 library works:
 // Hardware configuration: Set up nRF24L01 radio on SPI bus (pins 10, 11, 12, 13) plus pins 7 & 8
@@ -8,9 +9,7 @@ RF24 radio(7, 8);
 
 byte addresses[][6] = {"1Node","2Node"};
 
-// -----------------------------------------------------------------------------
-// SETUP   SETUP   SETUP   SETUP   SETUP   SETUP   SETUP   SETUP   SETUP
-// -----------------------------------------------------------------------------
+
 void setup() {
   Serial.begin(9600);
   Serial.println("THIS IS THE RECEIVER CODE - YOU NEED THE OTHER ARDUINO TO TRANSMIT");
@@ -35,16 +34,20 @@ void setup() {
   radio.startListening();
 }
 
-// -----------------------------------------------------------------------------
-// We are LISTENING on this device only (although we do transmit a response)
-// -----------------------------------------------------------------------------
+
 void loop() {
 
   // This is what we receive from the other device (the transmitter)
   unsigned char data;
-
-  // Is there any data for us to get?
-  if ( radio.available()) {
+// NRF (Pending - to be finalized during run)
+// 	SCL - 
+// 	SDA - 
+// 	MOSI -
+// 	MISO - 
+// 	SCK -
+// 	CE -
+// 	CSN -
+	e()) {
 
     // Go and read the data and put it into that variable
     while (radio.available()) {

@@ -1,3 +1,6 @@
+This text file detemines the pin connection of various modules to the Arduino
+
+
 Linear Actuator (Frigliiey)
 L239D-
 	Input1  - Mega 40 
@@ -30,15 +33,6 @@ S1-
 S2- 
 	PWM-MegaA5
 
-NRF (Pending - yet to be finaliseda)
-	SCL - 
-	SDA - 
-	MOSI -
-	MISO - 
-	SCK -
-	CE -
-	CSN -
-	
 
 
 
