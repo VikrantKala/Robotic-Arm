@@ -11,28 +11,49 @@ The tasks include:
 
 The Solution :-
 
+
 The programming was done in such a way that the 'Robotic Arm' is controlled by a Wireless Glove. The Wireless Glove trasmits the values trigerred by the change of its angular position and finger movements(in the glove) which are then recieved by the Robotic Arm to move as per the requirement of various tasks.
 
+
+
 There were a total of 3 teams which contributed toward the completion of this project.
+
 1. Mechanical Team - To build the basic structure of the Robotic Arm including the assembly of parts.
+
 2. Electrical Team - To create PCB's for the project and connecting/make circuits as per the model and code.
+
 3. Coding Team - To program the working of all the various devices and modules and to make sure that they work in syncronization.
+
+
 
 
 Hardware Used :-
 
+
 1. Transmission:-
+
     ->  nrf24l01 wireless module x2 (transceiver module)
+
     ->  MPU-6050 x2
+
     ->  Flex sensors x2
+
     ->  Arduino NANO    
+
+
 
 2. Recieve:- 
     ->  Servo Gripper Mini Motor (AC SG90 Servo Motor x2 For both axis)
+
     ->  Firgelli Linear Actuator
+
     ->  Hydraulic Linear Actuator (Large)
+
     ->  Power Window Motor
+
     ->  Arduino Mega
+
+
 
 
 The concept behind the Robotic Arm is as follows:-
@@ -58,12 +79,22 @@ The concept behind the Robotic Arm is as follows:-
 
 
 Connections to:-
+
      Arduino NANO
+
     ->  nrf24l01 wireless module x1 (transceiver module)
+
     ->  MPU-6050 x2
+
     ->  Flex sensors x2
+
+
      Arduino Mega
+
     ->  Servo Gripper Mini Motor (AC SG90 Servo Motor x2 For both axis)
+
     ->  Firgelli Linear Actuator
+
     ->  Hydraulic Linear Actuator (Large)
+
     ->  Power Window Motor
